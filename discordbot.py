@@ -42,6 +42,19 @@ async def startup(ctx):
 
 
 @bot.command()
+async def start(ctx):
+    headers = {
+        'x-api-key': APIKEY,
+        'action': 'startup'
+    }
+    url = URL
+    res = requests.get(url, headers=headers)
+    if res.status_code != 200:
+        message = json.loads(res.content)['message']
+        await ctx.send(message)
+
+
+@bot.command()
 async def stop(ctx):
     headers = {
         'x-api-key': APIKEY,
